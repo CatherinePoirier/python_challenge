@@ -16,44 +16,64 @@ line_count=0
 
 #Net_total_dict={} #creating a dictionaly of p&l values
  # Read the header row first (skip this step if there is now header)
-csv_header = next(csvreader) #removed header from csvreader object
-print(f"CSV Header: {csv_header}")
+csv_header = next(csvreader) #removed header from csvreader object but saved it in CSV_header if needed
+#print(f"CSV Header: {csv_header}")
 row_1 = next(csvreader) #removes first row of data and stores it in row_1
-print(row_1)
-
-    # Read each row of data after the header
+#print(row_1)
+total_months=1          #total months starts at 1 because removed first month and added it to row_1 varialbe, needed to get total month counts
+   
 net_total=0
 hold_row=int(row_1[1]) #row one value for calculation
 pl_list=[hold_row] #row one value for list
 change_pl=[]
 total_change=0
 
+#when find row of calculation find index and add 1 because moved first row to get date index
 
-for each_row in csvreader:
-          pl_list.append(int(each_row[1]))
-          change_pl_row=(int(each_row[1])-hold_row)
-          change_pl.append(change_pl_row)
-
-          #assign current row so can use in next calc as row above it
-          hold_row=int(each_row[1])
+for each_row in csvreader:      #for loop takes a row value and subtracts the value above it to get the change in P & L and appendeds the change_pl value to a list
+          pl_list.append(int(each_row[1]))  #changes the P&L column to an integer value and adds it to pl_list 
+          change_pl_row=(int(each_row[1])-hold_row)  # subtract a p&l value from the row above its value to get the change_pl_row value
+          change_pl.append(change_pl_row)  #appends the change_pl_row value to list change_pl
+          hold_row=int(each_row[1])   #assign current row to hold_row so can use in next calc as row above it
+          total_months=total_months+1
                     #print(each_row)
 #print(change_pl)
 
-for change_row in change_pl:
+for change_row in change_pl:  #adds each row in change_pl to get the total_change value
     #print(each_row)
     total_change=total_change+change_row
+average_change=total_change/len(change_pl)  #calculate the average of Change_pl by the number of values in the list 
 
-average_change=total_change/len(change_pl)
+great_decrease=0  #not sure if this should be something else
+great_increase=0 
 
-print(total_change)
-print(f'average change is {average_change}')
+for small_num in change_pl:
+        if great_decrease >= small_num:
+            great_decrease=small_num 
+            decrease_index=change_pl.index(small_num)
+
+for big_num in change_pl:
+        if great_increase < big_num:
+            great_increase=big_num 
+            increase_index=change_pl.index(big_num)
 
 for each_row in pl_list:
     #print(each_row)
     net_total=net_total+each_row
 
-print(f'Net Total is {net_total}')
 
+print("Financial Analysis")
+print('--------------------------------')
+print(f'Total Months: {total_months}')
+print(f'Total: ${net_total}')
+#print(total_change)
+print(f'Average Change: ${average_change:.2f}')
+print(f'Greatest Increase in Profits: (${great_increase})')
+print(f'Greatest Decrease in Profits: (${great_decrease})')
+
+#print(f'inc index {csvreader[increase_index+1]}')
+
+print(f'dec index {decrease_index}')
 
 #print(f'Processed {line_count} lines.')
 #print(f'Net Total is {net_total}')
