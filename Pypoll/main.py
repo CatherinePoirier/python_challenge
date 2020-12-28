@@ -8,7 +8,7 @@ import os
 import csv
 
 csvpath=os.path.join('Resources', 'election_data.csv')
-output_path = os.path.join("analysis", "poll_data.csv")
+output_path = os.path.join("analysis", "poll_data.txt")
 
 
 csvfile=open(csvpath)
@@ -42,10 +42,10 @@ print('-----------------------------')
 
 with open(output_path, 'w', newline='') as csvfile:
     csvwriter= csv.writer(csvfile, delimiter=',')
-    csvwriter.writerow('Election Results')
-    csvwriter.writerow('-----------------------------')
-    csvwriter.writerow(f'Total Votes: {vote_count}')
-    csvwriter.writerow('-----------------------------')
+    csvwriter.writerow(['Election Results'])
+    csvwriter.writerow(['-----------------------------'])
+    csvwriter.writerow([f'Total Votes: {vote_count}'])
+    csvwriter.writerow(['-----------------------------'])
 
 #when find row of calculation find index and add 1 because moved first row to get date index
 

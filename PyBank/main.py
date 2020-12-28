@@ -6,7 +6,7 @@ import os
 import csv
 
 csvpath=os.path.join('Resources', 'Homework_03-Python_PyBank_Resources_budget_data.csv')
-# output_path = os.path.join("analysis", "bank_data.csv")
+output_path = os.path.join("analysis", "bank_data.txt")
 
 csvfile=open(csvpath)
 csvreader=csv.reader(csvfile)
@@ -70,7 +70,7 @@ print(f'deccrease index {decrease_index}')
 print(f'increase index {increase_index}')
 #dec_date==csvreader[0, decrease_index]
 #print(f' decrease date is {dec_date}')
-dec_date=csvreader.index(decrease_index)
+#dec_date=csvreader.index(decrease_index)
 print(f'decrease date is {dec_date}')
 
 
@@ -83,6 +83,16 @@ print(f'Average Change: ${average_change:.2f}')
 print(f'Greatest Increase in Profits: (${great_increase})')
 print(f'Greatest Decrease in Profits: (${great_decrease})')
 
+with open(output_path, 'w', newline='') as csvfile:
+    csvwriter= csv.writer(csvfile, delimiter=',')
+    csvwriter.writerow(['Financial Anallysis'])
+    csvwriter.writerow(['-----------------------------'])
+    csvwriter.writerow([f'Total Months: {total_months}'])
+    csvwriter.writerow([f'Total: ${net_total}'])
+#print(total_change)
+    csvwriter.writerow([f'Average Change: ${average_change:.2f}'])
+    csvwriter.writerow([f'Greatest Increase in Profits: (${great_increase})'])
+    csvwriter.writerow([f'Greatest Decrease in Profits: (${great_decrease})'])
 
 
 #print(f'Processed {line_count} lines.')
