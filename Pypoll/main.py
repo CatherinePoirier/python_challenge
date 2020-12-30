@@ -21,8 +21,12 @@ csv_header = next(csvreader) #removed header from csvreader object but saved it 
 print(f"CSV Header: {csv_header}")
 #row_1 = next(csvreader) #removes first row of data and stores it in row_1
 #print(row_1)
+candidate_list=[]
 
-   
+for each_row in csvreader:      #for loop takes a row value and subtracts the value above it to get the change in P & L and appendeds the change_pl value to a list
+           candidate_list.append(each_row[2])  #changes the P&L column to an integer value and adds it to pl_list 
+
+print(candidate_list) 
 #net_total=0
 #hold_row=int(row_1[1]) #row one value for calculation
 #pl_list=[hold_row] #row one value for list
@@ -32,6 +36,7 @@ print(f"CSV Header: {csv_header}")
 #Calculates the Total number of votes by counting each row after header was removed
 for each_row in csvreader:
    vote_count=vote_count+1
+
 
 
 #prints Results
