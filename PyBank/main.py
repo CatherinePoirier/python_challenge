@@ -26,8 +26,6 @@ date_list=[hold_date]
 change_pl=[]
 total_change=0
 
-print(hold_date)
-#when find row of calculation find index and add 1 because moved first row to get date index
 
 for each_row in csvreader:      #for loop takes a row value and subtracts the value above it to get the change in P & L and appendeds the change_pl value to a list
           pl_list.append(int(each_row[1]))  #changes the P&L column to an integer value and adds it to pl_list 
@@ -57,41 +55,40 @@ for big_num in change_pl:
             great_increase=big_num 
             increase_index=change_pl.index(big_num)
 
-
-#print(date_list)
-#need to add 1 to indexs to account for header row
+#need to add 1 to indexs 
 decrease_index=decrease_index+1
 increase_index=increase_index+1
 
 #grabbing date of greatest decrease from csvreader
 decrease_date=(date_list[decrease_index])
-print(f'decrease date:  {decrease_date}')
 increase_date=(date_list[increase_index])
-print(f'increase date:  {increase_date}')
 
 for each_row in pl_list:
     #print(each_row)
     net_total=net_total+each_row
 
-print("Financial Analysis")
+
+print (' ')
+print('Financial Analysis')
 print('--------------------------------')
 print(f'Total Months: {total_months}')
 print(f'Total: ${net_total}')
 #print(total_change)
 print(f'Average Change: ${average_change:.2f}')
-print(f'Greatest Increase in Profits: (${great_increase})')
-print(f'Greatest Decrease in Profits: (${great_decrease})')
+print(f'Greatest Increase in Profits: {increase_date}  (${great_increase})')
+print(f'Greatest Decrease in Profits: {decrease_date} (${great_decrease})')
+print (' ')
 
 with open(output_path, 'w', newline='') as csvfile:
     csvwriter= csv.writer(csvfile, delimiter=',')
+    csvwriter.writerow([' '])
     csvwriter.writerow(['Financial Anallysis'])
     csvwriter.writerow(['-----------------------------'])
     csvwriter.writerow([f'Total Months: {total_months}'])
     csvwriter.writerow([f'Total: ${net_total}'])
-#print(total_change)
     csvwriter.writerow([f'Average Change: ${average_change:.2f}'])
-    csvwriter.writerow([f'Greatest Increase in Profits: (${great_increase})'])
-    csvwriter.writerow([f'Greatest Decrease in Profits: (${great_decrease})'])
+    csvwriter.writerow([f'Greatest Increase in Profits: {increase_date} (${great_increase})'])
+    csvwriter.writerow([f'Greatest Decrease in Profits: {decrease_date} (${great_decrease})'])
 
 
 #print(f'Processed {line_count} lines.')
