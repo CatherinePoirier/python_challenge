@@ -29,12 +29,13 @@ total_change=0
 
 for each_row in csvreader:      #for loop takes a row value and subtracts the value above it to get the change in P & L and appendeds the change_pl value to a list
           pl_list.append(int(each_row[1]))  #changes the P&L column to an integer value and adds it to pl_list 
-          date_list.append(each_row[0])  #adds the date value to a new list called date_list**********************************
+          date_list.append(each_row[0])  #adds the date value to a new list called date_list
           change_pl_row=(int(each_row[1])-hold_row)  # subtract a p&l value from the row above its value to get the change_pl_row value
           change_pl.append(change_pl_row)  #appends the change_pl_row value to list change_pl
           hold_row=int(each_row[1])   #assign current row to hold_row so can use in next calc as row above it
           total_months=total_months+1
-                    
+
+
 #print(change_pl)
 
 for change_row in change_pl:  #adds each row in change_pl to get the total_change value
