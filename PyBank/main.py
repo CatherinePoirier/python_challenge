@@ -1,7 +1,7 @@
 # read csv file two columns date and Profit/Losses
 #Calculate 1. The total number of months included in the dataset
     #2. The net total amount of "Profit/Losses" over the entire period
-#WORKING
+
 import os
 import csv
 
@@ -35,26 +35,24 @@ for each_row in csvreader:      #for loop takes a row value and subtracts the va
           hold_row=int(each_row[1])   #assign current row to hold_row so can use in next calc as row above it
           total_months=total_months+1
 
-
-#print(change_pl)
-
 for change_row in change_pl:  #adds each row in change_pl to get the total_change value
-    #print(each_row)
-    total_change=total_change+change_row
+     total_change=total_change+change_row
+
 average_change=total_change/len(change_pl)  #calculate the average of Change_pl by the number of values in the list 
 
 great_decrease=0  
 great_increase=0 
 
-for small_num in change_pl:
-        if great_decrease >= small_num:
-            great_decrease=small_num 
-            decrease_index=change_pl.index(small_num)
 
-for big_num in change_pl:
-        if great_increase < big_num:
-            great_increase=big_num 
-            increase_index=change_pl.index(big_num)
+for small_number in change_pl:    #searching change_pl for lowest value
+        if great_decrease >= small_number:
+            great_decrease=small_number 
+            decrease_index=change_pl.index(small_number)  #assigning index
+
+for big_number in change_pl:    #searching change_pl for largest value
+        if great_increase < big_number:
+            great_increase=big_number 
+            increase_index=change_pl.index(big_number)    #assigning index
 
 #need to add 1 to indexs 
 decrease_index=decrease_index+1
@@ -64,9 +62,8 @@ increase_index=increase_index+1
 decrease_date=(date_list[decrease_index])
 increase_date=(date_list[increase_index])
 
-for each_row in pl_list:
-    #print(each_row)
-    net_total=net_total+each_row
+for each_row in pl_list:                #caluclates the net total by counting each row in pl_list
+       net_total=net_total+each_row
 
 
 print (' ')
@@ -90,30 +87,5 @@ with open(output_path, 'w', newline='') as csvfile:
     csvwriter.writerow([f'Average Change: ${average_change:.2f}'])
     csvwriter.writerow([f'Greatest Increase in Profits: {increase_date} (${great_increase})'])
     csvwriter.writerow([f'Greatest Decrease in Profits: {decrease_date} (${great_decrease})'])
-
-
-#print(f'Processed {line_count} lines.')
-#print(f'Net Total is {net_total}')
-    
-#move down a row and subtract the value above it to get the change in p&l
-#append the change in p&L to a new list called change_pl 
-
-
-# for each_pl in pl_list:
-#     #print(each_pl)
-#     change_pl= 2ndrow - 1strow
-
-# csv_header = next(csvreader)
-# print(f"CSV Header: {csv_header}")
-
-
-# add all of the change_pl values togeter to get Total_Change_pl
-# count the number of Change_pl values to get Change_pl_count
-#calculate Average_chang_pl = Total_Change_pl/Change_pl_count
-
-
-
-
-
 
   
